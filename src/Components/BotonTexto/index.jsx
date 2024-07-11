@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const BotonEstilizado = styled.button`
-    background-color: transparent;
     height:54px;
+    min-width:180px;
     padding: 0 2rem;
     
+    background-color: ${props => (props.$activo ? "var(--Black)" : "transparent")};
     color: ${props => (props.$activo ? "var(--Blue)" : "var(--White)")};
     border: 3px solid transparent;
-    border-color: ${props => (props.$activo ? "var(--Blue)" : "var(--White)")};;
+    border-color: ${props => (props.$activo ? "var(--Blue)" : "var(--White)")};
 
     border-radius: 15px;
     text-transform: uppercase;
