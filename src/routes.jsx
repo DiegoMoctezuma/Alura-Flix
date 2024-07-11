@@ -7,7 +7,6 @@ function AppRoutes(){
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<PaginaBase/>}>
-                    <Route index element/>
                 </Route>
             </Routes>
         </BrowserRouter>

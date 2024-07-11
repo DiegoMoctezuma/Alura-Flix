@@ -6,8 +6,12 @@ const GlobalStyle = createGlobalStyle`
 
     :root {
         --Black: #000000;
+        --White: #ffffff;
+        --Blue: #2270d0;
         --DarkGrey: #272726;
         --LightGrey: #a5a5a5;
+        --FontRegular: "GandhiSansRegular";
+        --FontBold: "GandhiSansBold";
     }
 
     @font-face {
