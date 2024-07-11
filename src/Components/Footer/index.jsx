@@ -11,7 +11,7 @@ const FooterEstilizado = styled.footer`
     justify-content: center;
     align-items: center;
 
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     z-index: 1000;
