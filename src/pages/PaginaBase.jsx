@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import Header from "../Components/Header/Header";
+import GlobalStyle from "../Components/GlobalStyles/GlobalStyles";
 
 const Container = styled.div`
     width: 100%;
@@ -7,11 +9,15 @@ const Container = styled.div`
 
 function PaginaBase() {
     return (
-        <main>
-            <Container>
-                <Outlet/>
-            </Container>
-        </main>
+        <>
+            <GlobalStyle/>
+            <main>
+                <Header/>
+                <Container>
+                    <Outlet/>
+                </Container>
+            </main>
+        </>
     )
 }
 
