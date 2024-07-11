@@ -10,6 +10,7 @@ const BotonEstilizado = styled.button`
     color: ${props => (props.$activo ? "var(--Blue)" : "var(--White)")};
     border: 3px solid transparent;
     border-color: ${props => (props.$activo ? "var(--Blue)" : "var(--White)")};
+    box-shadow: ${props => (props.$activo ? "0 0 20px var(--Blue)" : "var(--White)")};
 
     border-radius: 15px;
     text-transform: uppercase;
