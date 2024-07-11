@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
+import GlobalContextProvider from "../Context/GlobalContext";
 import styled from "styled-components";
+
 import Header from "../Components/Header";
 import GlobalStyle from "../Components/GlobalStyles/GlobalStyles";
 import Footer from "../Components/Footer";
@@ -10,16 +12,16 @@ const Container = styled.div`
 
 function PaginaBase() {
     return (
-        <>
+        <main>
             <GlobalStyle/>
-            <main>
-                <Header/>
+            <Header/>
+            <GlobalContextProvider>
                 <Container>
                     <Outlet/>
                 </Container>
-                <Footer/>
-            </main>
-        </>
+            </GlobalContextProvider>
+            <Footer/>
+        </main>
     )
 }
 
