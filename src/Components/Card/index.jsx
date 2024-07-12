@@ -11,8 +11,8 @@ const CardEstilizado = styled.div`
     box-shadow: 0 0 20px ${props => props.$color};
 
     img {
-        border-radius: 15px 15px 0 0;
-        max-height: 300px;
+        border-radius: 10px 10px 0 0;
+        max-height: 40vh;
         width: 100%;
         object-fit: fill;
     }

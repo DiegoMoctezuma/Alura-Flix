@@ -14,6 +14,8 @@ const GlobalStyle = createGlobalStyle`
         --FontBold: "GandhiSansBold";
 
         --FrontEnd: #6bd0fe;
+        --BackEnd: #00c86f;
+        --Innovacion: #febb05;
     }
 
     @font-face {
