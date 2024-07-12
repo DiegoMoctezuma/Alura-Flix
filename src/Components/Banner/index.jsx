@@ -48,6 +48,7 @@ const Info = styled.div`
     }
 
     h3{
+        width: 90%;
         font-size: 2em;
         margin: 0 0 1em 0;
     }

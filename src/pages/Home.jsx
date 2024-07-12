@@ -4,6 +4,7 @@ import { GlobalContext } from "../Context/GlobalContext";
 import styled from "styled-components";
 import Banner from "../Components/Banner";
 import Equipo from "../Components/Equipo";
+import ModalEdit from "../Components/ModalEdit";
 
 
 const Container = styled.section`
@@ -37,6 +38,7 @@ function Home(){
                     ))
                 }
             </ContainerEquipos>
+            <ModalEdit/>
         </Container>
     )
 }
