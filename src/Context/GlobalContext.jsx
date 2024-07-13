@@ -8,6 +8,7 @@ function GlobalContextProvider ({children}) {
     const [videos, setVideos] = useState([]);
     const [randomVideo, setRandomVideo] = useState({});
     const [modalAbierto, setModalAbierto] = useState(false);
+    const [videoSeleccionado, setVideoSeleccionado] = useState(null);
 
     // Conexion con la API
     useEffect(() => {
@@ -34,7 +35,9 @@ function GlobalContextProvider ({children}) {
         videos,
         randomVideo,
         modalAbierto,
-        setModalAbierto
+        videoSeleccionado,
+        setModalAbierto,
+        setVideoSeleccionado
     };
 
     return(

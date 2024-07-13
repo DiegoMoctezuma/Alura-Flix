@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalContext";
+import useModalEdit from "../../Hooks/Editar";
+
 import styled from "styled-components";
 import iconCerrar from "/img/cancel.svg";
 
@@ -93,21 +95,21 @@ const BotonesContainer = styled.div`
 
 function ModalEdit() {
 
-    const { modalAbierto,setModalAbierto } = useContext(GlobalContext);
+    const { modalAbierto,videoSeleccionado,EditCerrado } = useModalEdit();
 
     return (
         modalAbierto &&
         <>
             <Overlay/>
             <DialogEstilizado open={true} $mitadY={window.scrollY}>
-                <img src={iconCerrar} onClick={() => setModalAbierto(false)}/>
+                <img src={iconCerrar} onClick={() => EditCerrado()}/>
                 <h2>Editar Card</h2>
                 <form method="dialog">
-                    <Campo titulo={"Titulo"}/>
-                    <ListaOpciones titulo={"Equipo"}/>
-                    <Campo titulo={"Imagen"} type="url"/>
-                    <Campo titulo={"Video"} type="url"/>
-                    <TextArea titulo={"Descripción"}/>
+                    <Campo titulo={"Titulo"} value={videoSeleccionado.titulo} />
+                    <ListaOpciones titulo={"Equipo"} />
+                    <Campo titulo={"Imagen"} type="url" value={videoSeleccionado.imagen} />
+                    <Campo titulo={"Video"} type="url" value={videoSeleccionado.video}/>
+                    <TextArea titulo={"Descripción"} value={videoSeleccionado.descripcion}/>
                     <BotonesContainer>
                         <input style={{backgroundColor:"var(--Black)"}} type="submit" value="Guardar"/>
                         <input type="reset" value="Limpiar"/>

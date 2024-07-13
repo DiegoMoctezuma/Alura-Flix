@@ -11,11 +11,6 @@ const FooterEstilizado = styled.footer`
     justify-content: center;
     align-items: center;
 
-    position: relative;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-
     img{
         height:40px;
         width: auto;

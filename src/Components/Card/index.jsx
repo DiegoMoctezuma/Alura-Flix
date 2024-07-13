@@ -1,9 +1,7 @@
-import { useContext } from "react";
-import { GlobalContext } from "../../Context/GlobalContext";
-
 import styled from "styled-components";
 import iconoBorrar from "/img/Borrar.svg";
 import iconoEditar from "/img/Editar.svg";
+import useModalEdit from "../../Hooks/Editar";
 
 const CardEstilizado = styled.div`
     min-width: 40%;
@@ -31,7 +29,7 @@ const Botones = styled.div`
     border-radius: 0 0 15px 15px;
 
     img{
-        height: 28px;
+        height: 2em;
         width: auto;
         cursor: pointer;
         transition: 0.3s;
@@ -44,14 +42,14 @@ const Botones = styled.div`
 
 function Card({color,video}) {
 
-    const { setModalAbierto } = useContext(GlobalContext)
+    const { EditAbierto } = useModalEdit();
 
     return (
         <CardEstilizado $color={color}>
             <img src={video.imagen}/>
             <Botones>
                 <img src={iconoBorrar}/>
-                <img src={iconoEditar} onClick={() => setModalAbierto(true)}/>
+                <img src={iconoEditar} onClick={() => EditAbierto(video)}/>
             </Botones>
         </CardEstilizado>
     );
