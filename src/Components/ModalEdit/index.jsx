@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { GlobalContext } from "../../Context/GlobalContext";
 import useModalEdit from "../../Hooks/Editar";
 
 import styled from "styled-components";

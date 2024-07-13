@@ -63,7 +63,9 @@ const Info = styled.div`
 
 function Banner(){
 
-    const { randomVideo } = useContext(GlobalContext);
+    const { state } = useContext(GlobalContext);
+    const randomVideo = state.randomVideo;
+    
     let color = "";
     switch(randomVideo.categoria){
         case "Front End":

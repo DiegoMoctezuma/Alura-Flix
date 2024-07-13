@@ -1,47 +1,55 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 export const GlobalContext = createContext();
 
+const estadoInicial = {
+    equipos: [],
+    videos: [],
+    randomVideo: {},
+    modalAbierto: false,
+    videoSeleccionado: null
+}
+
+const reducer = (state, action) => {
+    switch(action.type){
+        case 'SET_EQUIPOS':
+            return {...state, equipos: action.payload};
+        case 'SET_VIDEOS':
+            return {...state, videos: action.payload};
+        case 'SET_VIDEO_SELECCIONADO':
+            return {...state, videoSeleccionado: action.payload, modalAbierto: action.payload != null ? true : false};
+        case 'SET_RANDOM_VIDEO':
+            const randomIndex = Math.floor(Math.random() * action.payload.length);
+            return {
+                ...state, 
+                randomVideo: action.payload[randomIndex]
+            };
+        default:
+            return state;
+    }
+}
+
 function GlobalContextProvider ({children}) {
 
-    const [equipos, setEquipos] = useState([]);
-    const [videos, setVideos] = useState([]);
-    const [randomVideo, setRandomVideo] = useState({});
-    const [modalAbierto, setModalAbierto] = useState(false);
-    const [videoSeleccionado, setVideoSeleccionado] = useState(null);
+    const [ state,dispatch ] = useReducer(reducer,estadoInicial);
 
     // Conexion con la API
     useEffect(() => {
         fetch('http://localhost:3000/Equipos')
         .then(res => res.json())
-        .then(data => setEquipos(data));
+        .then(data => dispatch({type:'SET_EQUIPOS' , payload:data}));
 
         fetch('http://localhost:3000/Videos')
         .then(res => res.json())
         .then(data => {
-            setVideos(data);
-            getRandomVideo(data);
+            dispatch({type:'SET_VIDEOS' , payload:data});
+            dispatch({type:'SET_RANDOM_VIDEO' , payload:data});
         });
     }, []);
-    
-    // Función para obtener un video aleatorio
-    const getRandomVideo = (videos) => {
-        const randomIndex = Math.floor(Math.random() * videos.length);
-        setRandomVideo(videos[randomIndex]);
-    };
 
-    const values = {
-        equipos,
-        videos,
-        randomVideo,
-        modalAbierto,
-        videoSeleccionado,
-        setModalAbierto,
-        setVideoSeleccionado
-    };
 
     return(
-        <GlobalContext.Provider value={values}>
+        <GlobalContext.Provider value={{state,dispatch}}>
             {children}
         </GlobalContext.Provider>
     )

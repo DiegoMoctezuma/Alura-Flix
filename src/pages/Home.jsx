@@ -26,14 +26,14 @@ const ContainerEquipos = styled.div`
 
 function Home(){
 
-    const { equipos } = useContext(GlobalContext);
+    const { state } = useContext(GlobalContext);
 
     return (
         <Container>
             <Banner/>
             <ContainerEquipos>
                 {
-                    equipos.map(equipo => (
+                    state.equipos.map(equipo => (
                         <Equipo key={equipo.id} equipo={equipo}/>
                     ))
                 }

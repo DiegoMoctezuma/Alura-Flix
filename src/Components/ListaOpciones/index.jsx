@@ -45,13 +45,13 @@ const OpcionesContainer = styled.fieldset`
 
 function ListaOpciones({titulo}){
 
-    const { equipos } =  useContext(GlobalContext);
+    const { state } =  useContext(GlobalContext);
 
     return(
         <OpcionesContainer>
             <label>{titulo}</label>
             <select>
-                {equipos.map((equipo,index) => <option key={index} value={equipo.titulo}>{equipo.titulo}</option>)}
+                {state.equipos.map((equipo,index) => <option key={index} value={equipo.titulo}>{equipo.titulo}</option>)}
             </select>
         </OpcionesContainer>
     )

@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Card from "../Card";
 import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalContext";
+import styled from "styled-components";
+import Card from "../Card";
 
 const Container = styled.section`
     width: 90%;
@@ -42,14 +42,14 @@ const CardsContainer = styled.div`
 
 function Equipo({equipo}){
 
-    const { videos } = useContext(GlobalContext);
+    const { state } = useContext(GlobalContext);
 
     return(
         <Container>
             <TituloEquipo style={{backgroundColor:equipo.color}} >{equipo.titulo}</TituloEquipo>
             <CardsContainer $color={equipo.color}>
                 {
-                    videos.map(video => {
+                    state.videos.map(video => {
                         if(video.categoria === equipo.titulo){
                             return <Card key={video.id} color={equipo.color} video={video}/>
                         }

@@ -4,17 +4,19 @@ import { GlobalContext } from "../Context/GlobalContext"
 
 function useModalEdit(){
 
-    const { modalAbierto,videoSeleccionado,setModalAbierto, setVideoSeleccionado } = useContext(GlobalContext);
+    const { state, dispatch } = useContext(GlobalContext);
+    // const { modalAbierto,videoSeleccionado,setModalAbierto, setVideoSeleccionado } = useContext(GlobalContext);
 
     const EditAbierto = (video) => {
-        setVideoSeleccionado(video);
-        setModalAbierto(true);
+        dispatch({type:'SET_VIDEO_SELECCIONADO', payload:video});
     }
 
     const EditCerrado = () => {
-        setVideoSeleccionado(null);
-        setModalAbierto(false);
+        dispatch({type:'SET_VIDEO_SELECCIONADO', payload:null});
     }
+
+    const modalAbierto = state.modalAbierto;
+    const videoSeleccionado = state.videoSeleccionado;
 
     return { modalAbierto,videoSeleccionado,EditAbierto,EditCerrado };
 }
