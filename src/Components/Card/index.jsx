@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { GlobalContext } from "../../Context/GlobalContext";
+
 import styled from "styled-components";
 import iconoBorrar from "/img/Borrar.svg";
 import iconoEditar from "/img/Editar.svg";
@@ -40,12 +43,15 @@ const Botones = styled.div`
 `;
 
 function Card({color,video}) {
+
+    const { setModalAbierto } = useContext(GlobalContext)
+
     return (
         <CardEstilizado $color={color}>
             <img src={video.imagen}/>
             <Botones>
                 <img src={iconoBorrar}/>
-                <img src={iconoEditar}/>
+                <img src={iconoEditar} onClick={() => setModalAbierto(true)}/>
             </Botones>
         </CardEstilizado>
     );

@@ -1,9 +1,11 @@
+import { useContext } from "react";
+import { GlobalContext } from "../../Context/GlobalContext";
 import styled from "styled-components";
+import iconCerrar from "/img/cancel.svg";
+
 import Campo from "../Campo";
 import TextArea from "../TextArea";
 import ListaOpciones from "../ListaOpciones";
-import BotonTexto from "../BotonTexto";
-
 
 const Overlay = styled.div`
     position: fixed;
@@ -17,7 +19,8 @@ const Overlay = styled.div`
 
 const DialogEstilizado = styled.dialog`
     position:absolute;
-    top: 100vh;
+    top: ${props => props.$mitadY}px;
+    bottom: -${props => props.$mitadY}px;
 
     background-color: #03122F;
     padding: 2em;
@@ -43,6 +46,18 @@ const DialogEstilizado = styled.dialog`
         flex-direction: column;
         align-items: center;
     }
+
+    img{
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        width: 3em;
+        cursor: pointer;
+
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
 `;
 
 const BotonesContainer = styled.div`
@@ -52,13 +67,40 @@ const BotonesContainer = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    input{
+        width: 10em;
+        height: 3em;
+        background-color: transparent;
+        color: var(--White);
+        border: 3px solid var(--Blue);
+        border-radius: 15px;
+        box-shadow: 0 0 20px var(--Blue);
+
+        font-family: var(--FontBold);
+        font-size: 20px;
+
+        cursor: pointer;
+        transition: 0.4s;
+
+        &:hover{
+            border-color: var(--White);
+            box-shadow: 0 0 20px var(--White);
+        }
+
+    }
 `;
 
 function ModalEdit() {
+
+    const { modalAbierto,setModalAbierto } = useContext(GlobalContext);
+
     return (
+        modalAbierto &&
         <>
             <Overlay/>
-            <DialogEstilizado open={true} >
+            <DialogEstilizado open={true} $mitadY={window.scrollY}>
+                <img src={iconCerrar} onClick={() => setModalAbierto(false)}/>
                 <h2>Editar Card</h2>
                 <form method="dialog">
                     <Campo titulo={"Titulo"}/>
@@ -67,8 +109,8 @@ function ModalEdit() {
                     <Campo titulo={"Video"} type="url"/>
                     <TextArea titulo={"Descripción"}/>
                     <BotonesContainer>
-                        <BotonTexto texto={"Guardar"} activo={true}/>
-                        <BotonTexto texto={"Limpiar"}/>
+                        <input style={{backgroundColor:"var(--Black)"}} type="submit" value="Guardar"/>
+                        <input type="reset" value="Limpiar"/>
                     </BotonesContainer>
                 </form>
             </DialogEstilizado>

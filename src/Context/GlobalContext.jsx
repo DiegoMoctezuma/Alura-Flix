@@ -7,6 +7,7 @@ function GlobalContextProvider ({children}) {
     const [equipos, setEquipos] = useState([]);
     const [videos, setVideos] = useState([]);
     const [randomVideo, setRandomVideo] = useState({});
+    const [modalAbierto, setModalAbierto] = useState(false);
 
     // Conexion con la API
     useEffect(() => {
@@ -28,8 +29,16 @@ function GlobalContextProvider ({children}) {
         setRandomVideo(videos[randomIndex]);
     };
 
+    const values = {
+        equipos,
+        videos,
+        randomVideo,
+        modalAbierto,
+        setModalAbierto
+    };
+
     return(
-        <GlobalContext.Provider value={{equipos,videos,randomVideo}}>
+        <GlobalContext.Provider value={values}>
             {children}
         </GlobalContext.Provider>
     )
