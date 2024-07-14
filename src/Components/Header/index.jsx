@@ -9,7 +9,9 @@ const HeaderEstilizado = styled.header`
     display: flex;
     align-items: center;
 
-    background-color:var(--DarkGrey);
+    background-color:var(--Black);
+    box-shadow: 0 -5px 10px var(--Blue);
+
 
     img{
         height: 40px;

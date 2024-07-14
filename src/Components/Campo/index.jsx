@@ -35,11 +35,17 @@ const CampoContainer = styled.fieldset`
     }
 `;
 
-function Campo({titulo,type="text",value,set,required=false}){
+function Campo({titulo,type="text",value,set,required=false,placeholder=""}) {
     return(
         <CampoContainer>
             <label>{titulo}</label>
-            <input type={type} value={value} onChange={(e) => set(e.target.value)} required={required}/>
+            <input 
+                type={type} 
+                value={value} 
+                onChange={(e) => set(e.target.value)} 
+                required={required}
+                placeholder={placeholder}
+            />
         </CampoContainer>
     )
 }

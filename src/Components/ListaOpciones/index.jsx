@@ -55,6 +55,7 @@ function ListaOpciones({titulo,categoria,set}){
                     <option key={index} value={equipo.titulo}>
                         {equipo.titulo}
                     </option>)}
+                <option value={categoria} disabled hidden>seleccione una categoría</option>
             </select>
         </OpcionesContainer>
     )
