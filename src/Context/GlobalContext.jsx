@@ -5,6 +5,7 @@ export const GlobalContext = createContext();
 const estadoInicial = {
     equipos: [],
     videos: [],
+    contenidoVideo:{},
     randomVideo: {},
     modalAbierto: false,
     videoSeleccionado: null
@@ -18,6 +19,8 @@ const reducer = (state, action) => {
             return {...state, videos: action.payload};
         case 'SET_VIDEO_SELECCIONADO':
             return {...state, videoSeleccionado: action.payload, modalAbierto: action.payload != null ? true : false};
+        case 'SET_CONTENIDO_VIDEO':
+            return {...state, contenidoVideo: action.payload};
         case 'SET_RANDOM_VIDEO':
             const randomIndex = Math.floor(Math.random() * action.payload.length);
             return {

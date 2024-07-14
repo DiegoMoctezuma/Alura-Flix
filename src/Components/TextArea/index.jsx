@@ -35,11 +35,11 @@ const TextAreaEstilizado = styled.textarea`
         }
 `;
 
-function TextArea({titulo,value}) {
+function TextArea({titulo,value,set,required=false}) {
     return(
         <TextContainer>
             <label>{titulo}</label>
-            <TextAreaEstilizado value={value} rows={8}/>
+            <TextAreaEstilizado required={required} value={value} rows={8} onChange={e => set(e.target.value)}/>
         </TextContainer>
     )
 }

@@ -43,15 +43,18 @@ const OpcionesContainer = styled.fieldset`
     }
 `;
 
-function ListaOpciones({titulo}){
+function ListaOpciones({titulo,categoria,set}){
 
     const { state } =  useContext(GlobalContext);
 
     return(
         <OpcionesContainer>
             <label>{titulo}</label>
-            <select>
-                {state.equipos.map((equipo,index) => <option key={index} value={equipo.titulo}>{equipo.titulo}</option>)}
+            <select value={categoria} onChange={e => set(e.target.value)}>
+                {state.equipos.map((equipo,index) => 
+                    <option key={index} value={equipo.titulo}>
+                        {equipo.titulo}
+                    </option>)}
             </select>
         </OpcionesContainer>
     )

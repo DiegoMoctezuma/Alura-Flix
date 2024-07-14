@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useModalEdit from "../../Hooks/Editar";
 
 import styled from "styled-components";
@@ -93,7 +94,31 @@ const BotonesContainer = styled.div`
 
 function ModalEdit() {
 
-    const { modalAbierto,videoSeleccionado,EditCerrado } = useModalEdit();
+    const { modalAbierto,videoSeleccionado,EditCerrado,EditarContenido } = useModalEdit();
+
+    const [titulo, setTitulo] = useState("");
+    const [equipo, setEquipo] = useState("");
+    const [imagen, setImagen] = useState("");
+    const [video, setVideo] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+
+    useEffect(() => {
+        if(videoSeleccionado != null){
+            setTitulo(videoSeleccionado.titulo);
+            setEquipo(videoSeleccionado.categoria);
+            setImagen(videoSeleccionado.imagen);
+            setVideo(videoSeleccionado.video);
+            setDescripcion(videoSeleccionado.descripcion);
+        }
+    },[videoSeleccionado]);
+
+    let contenido = {
+        titulo: titulo,
+        categoria: equipo,
+        imagen: imagen,
+        video: video,
+        descripcion: descripcion
+    } 
 
     return (
         modalAbierto &&
@@ -103,13 +128,21 @@ function ModalEdit() {
                 <img src={iconCerrar} onClick={() => EditCerrado()}/>
                 <h2>Editar Card</h2>
                 <form method="dialog">
-                    <Campo titulo={"Titulo"} value={videoSeleccionado.titulo} />
-                    <ListaOpciones titulo={"Equipo"} />
-                    <Campo titulo={"Imagen"} type="url" value={videoSeleccionado.imagen} />
-                    <Campo titulo={"Video"} type="url" value={videoSeleccionado.video}/>
-                    <TextArea titulo={"Descripción"} value={videoSeleccionado.descripcion}/>
+                    <Campo titulo={"Titulo"} value={titulo} set={setTitulo} required={true}/>
+                    <ListaOpciones titulo={"Equipo"} categoria={equipo} set={setEquipo} />
+                    <Campo titulo={"Imagen"} type="url" value={imagen} set={setImagen} required={true}/>
+                    <Campo titulo={"Video"} type="url" value={video} set={setVideo} required={true}/>
+                    <TextArea titulo={"Descripción"} value={descripcion} set={setDescripcion} required={true}/>
                     <BotonesContainer>
-                        <input style={{backgroundColor:"var(--Black)"}} type="submit" value="Guardar"/>
+                        <input 
+                            style={{backgroundColor:"var(--Black)"}} 
+                            type="submit" 
+                            value="Guardar"
+                            onClick={e =>{
+                                e.preventDefault();
+                                EditarContenido(contenido);
+                            }}
+                        />
                         <input type="reset" value="Limpiar"/>
                     </BotonesContainer>
                 </form>

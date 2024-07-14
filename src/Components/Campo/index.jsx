@@ -35,11 +35,11 @@ const CampoContainer = styled.fieldset`
     }
 `;
 
-function Campo({titulo,type="text",value}){
+function Campo({titulo,type="text",value,set,required=false}){
     return(
         <CampoContainer>
             <label>{titulo}</label>
-            <input type={type} value={value}/>
+            <input type={type} value={value} onChange={(e) => set(e.target.value)} required={required}/>
         </CampoContainer>
     )
 }
