@@ -20,6 +20,7 @@ const reducer = (state, action) => {
         case 'SET_VIDEO_SELECCIONADO':
             return {...state, videoSeleccionado: action.payload, modalAbierto: action.payload != null ? true : false};
         case 'SET_CONTENIDO_VIDEO':
+            console.log(action.payload);
             return {...state, contenidoVideo: action.payload};
         case 'SET_RANDOM_VIDEO':
             const randomIndex = Math.floor(Math.random() * action.payload.length);

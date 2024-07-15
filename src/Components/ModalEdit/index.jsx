@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import useModalEdit from "../../Hooks/Editar";
 
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import iconCerrar from "/img/cancel.svg";
 import Campo from "../Campo";
 import TextArea from "../TextArea";
 import ListaOpciones from "../ListaOpciones";
+import FormVideo from "../FormVideo";
 
 const Overlay = styled.div`
     position: fixed;
@@ -41,13 +42,6 @@ const DialogEstilizado = styled.dialog`
         font-size: 2em;
     }
 
-    form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
     img{
         position: absolute;
         top: 1em;
@@ -61,26 +55,37 @@ const DialogEstilizado = styled.dialog`
     }
 `;
 
-const BotonesContainer = styled.div`
+const FormContainer = styled.form`
     width: 100%;
-    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
+    fieldset{
+        display: inline-block;
+        width: 90%;
+        margin:0;
+    }
+`;
+
+const BotonesContainer = styled.div`
+
+    width: 100%;
     display: flex;
     justify-content: space-around;
-    align-items: center;
 
-    input{
-        width: 10em;
-        height: 3em;
+    padding: 1em 0 0 0;
+
+    button{
         background-color: transparent;
         color: var(--White);
+        padding: 0.5em 1em;
         border: 3px solid var(--Blue);
-        border-radius: 15px;
-        box-shadow: 0 0 20px var(--Blue);
+        border-radius: 10px;
+        min-width: 5em;
 
-        font-family: var(--FontBold);
-        font-size: 20px;
-
+        font-size: 1.5em;
         cursor: pointer;
         transition: 0.4s;
 
@@ -88,64 +93,37 @@ const BotonesContainer = styled.div`
             border-color: var(--White);
             box-shadow: 0 0 20px var(--White);
         }
-
     }
 `;
 
 function ModalEdit() {
 
     const { modalAbierto,videoSeleccionado,EditCerrado,EditarContenido } = useModalEdit();
+    
+    const onSubmit = (data) => EditarContenido({...data,id:videoSeleccionado.id});
 
-    const [titulo, setTitulo] = useState("");
-    const [equipo, setEquipo] = useState("");
-    const [imagen, setImagen] = useState("");
-    const [video, setVideo] = useState("");
-    const [descripcion, setDescripcion] = useState("");
-
-    useEffect(() => {
-        if(videoSeleccionado != null){
-            setTitulo(videoSeleccionado.titulo);
-            setEquipo(videoSeleccionado.categoria);
-            setImagen(videoSeleccionado.imagen);
-            setVideo(videoSeleccionado.video);
-            setDescripcion(videoSeleccionado.descripcion);
-        }
-    },[videoSeleccionado]);
-
-    let contenido = {
-        titulo: titulo,
-        categoria: equipo,
-        imagen: imagen,
-        video: video,
-        descripcion: descripcion
-    } 
+    const onClose = () => {
+        EditCerrado(); 
+        methods.reset();
+    }
+    const methods = useForm();
 
     return (
         modalAbierto &&
         <>
             <Overlay/>
             <DialogEstilizado open={true} $mitadY={window.scrollY}>
-                <img src={iconCerrar} onClick={() => EditCerrado()}/>
+                <img src={iconCerrar} onClick={onClose}/>
                 <h2>Editar Card</h2>
-                <form method="dialog">
-                    <Campo titulo={"Titulo"} value={titulo} set={setTitulo} required={true}/>
-                    <ListaOpciones titulo={"Equipo"} categoria={equipo} set={setEquipo} />
-                    <Campo titulo={"Imagen"} type="url" value={imagen} set={setImagen} required={true}/>
-                    <Campo titulo={"Video"} type="url" value={video} set={setVideo} required={true}/>
-                    <TextArea titulo={"Descripción"} value={descripcion} set={setDescripcion} required={true}/>
-                    <BotonesContainer>
-                        <input 
-                            style={{backgroundColor:"var(--Black)"}} 
-                            type="submit" 
-                            value="Guardar"
-                            onClick={e =>{
-                                e.preventDefault();
-                                EditarContenido(contenido);
-                            }}
-                        />
-                        <input type="reset" value="Limpiar"/>
-                    </BotonesContainer>
-                </form>
+                <FormProvider {...methods}>
+                    <FormContainer onSubmit={methods.handleSubmit(onSubmit)}>
+                        <FormVideo/>
+                        <BotonesContainer>
+                            <button style={{backgroundColor:"var(--Black)"}} type="submit">Enviar</button>
+                            <button type="reset">Limpiar</button>
+                        </BotonesContainer>
+                    </FormContainer>
+                </FormProvider>
             </DialogEstilizado>
         </>
     )
