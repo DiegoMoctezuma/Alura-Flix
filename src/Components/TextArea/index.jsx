@@ -54,6 +54,7 @@ function TextArea({titulo,placeholder="",objKey, value}) {
                         value: true,
                         message: `El campo descripción es obligatorio`
                     },
+                    validate: value => value.trim() !== ""
                 })} 
                 placeholder={
                     errors[objKey] ? errors[objKey].message : placeholder

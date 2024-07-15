@@ -42,7 +42,7 @@ const CampoContainer = styled.fieldset`
 
 function Campo({titulo,type="text",objKey,placeholder="",value}) {
 
-    const { register, formState:{ errors } } = useFormContext();
+    const { register, formState:{ errors }, resetField } = useFormContext();
 
 
     return(
@@ -55,7 +55,7 @@ function Campo({titulo,type="text",objKey,placeholder="",value}) {
                         value: true,
                         message: `El campo ${objKey} es obligatorio`
                     },
-                    
+                    validate: value => value.trim() !== ""
                 })}
                 type={type}
                 placeholder={
