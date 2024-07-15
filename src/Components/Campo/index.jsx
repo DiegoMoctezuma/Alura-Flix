@@ -1,3 +1,4 @@
+import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 
 
@@ -13,6 +14,7 @@ const CampoContainer = styled.fieldset`
 
     label {
         font-size: 1.2em;
+        color: ${props => props.$color};
     }
 
     input {
@@ -32,20 +34,35 @@ const CampoContainer = styled.fieldset`
             border: 4px solid var(--White);
             box-shadow: 0 0 10px var(--White);  
         }
+        &::placeholder{
+            color: ${props => props.$color};
+        }
     }
 `;
 
-function Campo({titulo,type="text",value,set,required=false,placeholder=""}) {
+function Campo({titulo,type="text",objKey,placeholder="",value}) {
+
+    const { register, formState:{ errors } } = useFormContext();
+
+
     return(
-        <CampoContainer>
+        <CampoContainer $color={ errors[objKey] ? "var(--Red)" : "var(--LightGrey)" }>
             <label>{titulo}</label>
             <input 
-                type={type} 
-                value={value} 
-                onChange={(e) => set(e.target.value)} 
-                required={required}
-                placeholder={placeholder}
-            />
+                {...register(objKey,{
+                    value: value,
+                    required:{
+                        value: true,
+                        message: `El campo ${objKey} es obligatorio`
+                    },
+                    
+                })}
+                type={type}
+                placeholder={
+                    errors[objKey] ? errors[objKey].message : placeholder
+                }
+                style={errors[objKey] ? {borderColor:"var(--Red)",boxShadow: "0 0 20px var(--Red)"} : {} }
+            />            
         </CampoContainer>
     )
 }

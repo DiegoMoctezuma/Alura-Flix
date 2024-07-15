@@ -1,6 +1,7 @@
-import { useContext } from "react";
-import styled from "styled-components";
 import { GlobalContext } from "../../Context/GlobalContext";
+import { useContext } from "react";
+import { useFormContext } from "react-hook-form";
+import styled from "styled-components";
 
 const OpcionesContainer = styled.fieldset`
     display: flex;
@@ -14,6 +15,7 @@ const OpcionesContainer = styled.fieldset`
 
     label {
         font-size: 1.2em;
+        color: ${props => props.$color};
     }
 
     select {
@@ -24,7 +26,7 @@ const OpcionesContainer = styled.fieldset`
         border-radius: 10px;
         
         font-size: 1.2em;
-        color: var(--LightGrey);
+        color: ${props => props.$color};
         resize: none;
         
         transition: 0.3s;
@@ -43,19 +45,26 @@ const OpcionesContainer = styled.fieldset`
     }
 `;
 
-function ListaOpciones({titulo,categoria,set}){
+function ListaOpciones({titulo,objKey,value}){
 
     const { state } =  useContext(GlobalContext);
+    const { register, formState:{ errors } } = useFormContext();
 
     return(
-        <OpcionesContainer>
+        <OpcionesContainer $color={errors[objKey] ? "var(--Red)" : "var(--LightGrey)"}>
             <label>{titulo}</label>
-            <select value={categoria} onChange={e => set(e.target.value)}>
+            <select 
+                {...register(objKey,{
+                    value: value,
+                    validate: value => value !== "default"
+                })} 
+                style={ errors[objKey] ? {borderColor:"var(--Red)"} : {}}
+            >
                 {state.equipos.map((equipo,index) => 
                     <option key={index} value={equipo.titulo}>
                         {equipo.titulo}
                     </option>)}
-                <option value={categoria} disabled hidden>seleccione una categoría</option>
+                <option  value={"default"} disabled hidden>seleccione una categoría</option>
             </select>
         </OpcionesContainer>
     )

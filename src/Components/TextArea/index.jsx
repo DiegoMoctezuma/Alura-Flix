@@ -1,3 +1,4 @@
+import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 
 const TextContainer = styled.fieldset`
@@ -12,6 +13,7 @@ const TextContainer = styled.fieldset`
 
     label {
         font-size: 1.2em;
+        color: ${props => props.$color};
     }
 `;
 
@@ -33,13 +35,33 @@ const TextAreaEstilizado = styled.textarea`
             border: 4px solid var(--White);
             box-shadow: 0 0 10px var(--White);  
         }
+        &::placeholder{
+        color: ${props => props.$color};
+    }
 `;
 
-function TextArea({titulo,value,set,required=false,placeholder=""}) {
+function TextArea({titulo,placeholder="",objKey, value}) {
+
+    const { register, formState:{ errors } } = useFormContext();
+
     return(
-        <TextContainer>
+        <TextContainer $color={ errors[objKey] ? "var(--Red)" : "var(--LightGrey)"}>
             <label>{titulo}</label>
-            <TextAreaEstilizado placeholder={placeholder} required={required} value={value} rows={8} onChange={e => set(e.target.value)}/>
+            <TextAreaEstilizado 
+                {...register(objKey,{
+                    value: value,
+                    required:{
+                        value: true,
+                        message: `El campo descripción es obligatorio`
+                    },
+                })} 
+                placeholder={
+                    errors[objKey] ? errors[objKey].message : placeholder
+                }
+                style={errors[objKey] ? {borderColor:"var(--Red)",boxShadow: "0 0 20px var(--Red)"} : {} }
+                rows={8}
+                $color={ errors[objKey] ? "var(--Red)" : "var(--LightGrey)"}
+            />
         </TextContainer>
     )
 }

@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
         --Black: #000000;
         --White: #ffffff;
         --Blue: #2270d0;
+        --Red:#e43934;
         --DarkGrey: #272726;
         --LightGrey: #a5a5a5;
         --FontRegular: "GandhiSansRegular";

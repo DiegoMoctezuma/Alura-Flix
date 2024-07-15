@@ -1,5 +1,10 @@
+import { useContext } from "react";
+import { GlobalContext } from "../Context/GlobalContext";
+import { FormProvider, useForm } from "react-hook-form";
+import useModalEdit from "../Hooks/Editar";
 import styled from "styled-components";
-import FormNuevoVideo from "../Components/FormNuevoVideo";
+
+import FormVideo from "../Components/FormVideo";
 
 
 const Container = styled.section`
@@ -25,12 +30,79 @@ const Container = styled.section`
 
 `;
 
+const FormContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+
+    width: 80%;
+    padding: 2rem 0;
+
+    h3{
+        font-size: 2em;
+    }
+`;
+
+const FormEstilizado = styled.form`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+`;
+
+const BotonesContainer = styled.div`
+
+    width: 100%;
+    display: flex;
+    gap: 3em;
+
+    padding: 1em;
+
+    button{
+        background-color: transparent;
+        color: var(--White);
+        padding: 0.5em 1em;
+        border: 3px solid var(--Blue);
+        border-radius: 10px;
+        min-width: 5em;
+
+        font-size: 1.5em;
+        cursor: pointer;
+        transition: 0.4s;
+
+        &:hover{
+            border-color: var(--White);
+            box-shadow: 0 0 20px var(--White);
+        }
+    }
+`;
+
 function NuevoVideo() {
+
+    // Global
+    const { state } = useContext(GlobalContext);
+    const { EditarContenido } = useModalEdit();
+
+    // Form
+    const methods = useForm();
+    const onSubmit = (data) => EditarContenido({...data, id: state.videos.length + 1});
+
     return (
         <Container>
             <h2>Nuevo Video</h2>
             <p>Complete el formulario para crear una nueva tarjeta de video</p>
-            <FormNuevoVideo/>
+            <FormContainer>
+                <h3>Crear Tarjeta</h3>
+                <FormProvider {...methods} >
+                    <FormEstilizado onSubmit={methods.handleSubmit(onSubmit)}>
+                        <FormVideo/>
+                        <BotonesContainer>
+                            <button type="submit">Enviar</button>
+                            <button type="reset">Limpiar</button>
+                        </BotonesContainer>
+                    </FormEstilizado>
+                </FormProvider>
+            </FormContainer>
         </Container>
     )
 }
