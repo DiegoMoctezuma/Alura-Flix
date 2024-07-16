@@ -15,9 +15,15 @@ const CardEstilizado = styled.div`
 
     img {
         border-radius: 10px 10px 0 0;
-        max-height: 40vh;
         width: 100%;
-        object-fit: fill;
+        max-height: 40vh;
+    }
+
+    @media (max-width: 1024px){
+        min-width: 50%;
+        img{
+            max-height: 17vh;
+        }
     }
 `;
 

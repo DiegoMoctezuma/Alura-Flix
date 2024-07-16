@@ -7,6 +7,10 @@ const Container = styled.section`
     width: 90%;
     height: 75vh;
     padding: 0 0 5em 0;
+
+    @media (max-width: 1024px){
+        height: 30vh;
+    }
 `;
 
 const TituloEquipo = styled.h2`

@@ -15,6 +15,11 @@ const FooterEstilizado = styled.footer`
         height:40px;
         width: auto;
     }
+
+    @media (max-width: 1024px){
+        height: 10vh;
+    }
+
 `;
 
 function Footer(){

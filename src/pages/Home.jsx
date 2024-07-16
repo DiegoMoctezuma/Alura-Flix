@@ -22,6 +22,10 @@ const ContainerEquipos = styled.div`
     align-items: center;
 
     background-color: var(--DarkGrey);
+
+    @media (max-width: 768px){
+        padding: 2rem 0;
+    }
 `;
 
 function Home(){

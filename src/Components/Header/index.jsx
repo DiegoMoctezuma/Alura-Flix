@@ -17,6 +17,19 @@ const HeaderEstilizado = styled.header`
         height: 40px;
         width: auto;
     }
+
+    @media (max-width: 1024px){
+        height: 10vh;
+    }
+
+    @media (max-width: 768px){
+        height: 8vh;
+        position: fixed;
+
+        img{
+            display: none;
+        }
+    }
 `;
 
 const Container =  styled.div`
@@ -25,6 +38,10 @@ const Container =  styled.div`
 
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 768px){
+        justify-content: center;
+    }
 `;
 
 const ContainerBotones = styled.div`

@@ -27,6 +27,9 @@ const Container = styled.section`
         text-transform: uppercase;
     }
 
+    @media (min-width: 1024px){
+        height: 76vh;
+    }
 `;
 
 const FormContainer = styled.div`

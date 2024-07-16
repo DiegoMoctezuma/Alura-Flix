@@ -53,6 +53,10 @@ const DialogEstilizado = styled.dialog`
             transform: scale(1.1);
         }
     }
+
+    @media (max-width: 1024px){
+        width: 70vw;
+    }
 `;
 
 const FormContainer = styled.form`

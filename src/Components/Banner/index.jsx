@@ -14,12 +14,20 @@ const BannerEstilizado = styled.div`
     
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+
+    @media (max-width: 1024px){
+        height: 40vh;
+    }
+    
+    @media (max-width: 768px){
+        display:none;
+    }
 `;
 const ContainerBanner = styled.div`
     width: 90%;
     display: flex;
-
+    align-items: center;
     
     img{
         width: 70%;
@@ -27,6 +35,12 @@ const ContainerBanner = styled.div`
         border-radius: 15px;
         border: 5px solid ${props => props.$color};
         box-shadow: 0 0 10px 5px ${props => props.$color};
+    }
+
+    @media (max-width: 1024px){
+        img{
+            width: 50%;
+        }
     }
 `;
 
@@ -57,6 +71,21 @@ const Info = styled.div`
         font-size: 1.2em;
         line-height: 1.5em;
         width: 80%;
+    }
+
+    @media (max-width: 1024px){
+        h2{
+            font-size: 1.8em;
+            
+        }
+        h3{
+            font-size: 1.7em;
+        }
+        p{
+            font-size: 1em;
+            line-height: 1.5em;
+            width: 80%;
+        }
     }
 `;
 
