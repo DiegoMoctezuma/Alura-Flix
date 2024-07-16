@@ -12,7 +12,11 @@ function useModalEdit(){
     }
 
     const EditarContenido = (contenido) => {
-        dispatch({type:'SET_CONTENIDO_VIDEO', payload:contenido});
+        dispatch({type:'UPDATE_VIDEO', payload:contenido});
+    }
+
+    const AgregarNuevoVideo = (video) => {
+        dispatch({type:'CREATE_VIDEO', payload:video});
     }
 
     const EditCerrado = () => {
@@ -22,7 +26,7 @@ function useModalEdit(){
     const modalAbierto = state.modalAbierto;
     const videoSeleccionado = state.videoSeleccionado;
 
-    return { modalAbierto,videoSeleccionado,EditAbierto,EditCerrado,EditarContenido };
+    return { modalAbierto,videoSeleccionado,EditAbierto,EditCerrado,EditarContenido,AgregarNuevoVideo };
 }
 
 export default useModalEdit;

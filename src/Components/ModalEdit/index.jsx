@@ -100,13 +100,19 @@ function ModalEdit() {
 
     const { modalAbierto,videoSeleccionado,EditCerrado,EditarContenido } = useModalEdit();
     
-    const onSubmit = (data) => EditarContenido({...data,id:videoSeleccionado.id});
+    const methods = useForm();
+
+    const onSubmit = (data) => {
+        if(modalAbierto){
+            EditarContenido({...data,id:videoSeleccionado.id});
+            EditCerrado();
+        }
+    };
 
     const onClose = () => {
         EditCerrado(); 
         methods.reset();
     }
-    const methods = useForm();
 
     return (
         modalAbierto &&

@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { GlobalContext } from "../Context/GlobalContext";
 import { FormProvider, useForm } from "react-hook-form";
+import { v4 as uuidv4 } from 'uuid';
 import useModalEdit from "../Hooks/Editar";
 import styled from "styled-components";
 
@@ -80,12 +79,15 @@ const BotonesContainer = styled.div`
 function NuevoVideo() {
 
     // Global
-    const { state } = useContext(GlobalContext);
-    const { EditarContenido } = useModalEdit();
+    const { AgregarNuevoVideo } = useModalEdit();
 
     // Form
     const methods = useForm();
-    const onSubmit = (data) => EditarContenido({...data, id: state.videos.length + 1});
+
+    const onSubmit = (data) => {
+        AgregarNuevoVideo({...data,id: uuidv4()});
+        methods.reset(); 
+    };
 
     return (
         <Container>
